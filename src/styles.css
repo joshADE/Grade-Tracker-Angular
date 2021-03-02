@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #3CB371;
+    box-shadow: 0 0 0 .2rem rgba(60,179,113, 0.2);
+}
+
+input[type="text"] {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #444;
+    padding: 1px 3px;
+}
+.btn {
+    width: 100%;
+    min-height: 20px;
+}

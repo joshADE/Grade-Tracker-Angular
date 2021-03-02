@@ -1,0 +1,52 @@
+<div class="inner">
+  <div class="inner-top">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="1" class="terms-label">Terms</th>
+          <th [attr.colspan]="getMaxCourseForTerms() + 1" class="courses-label">Courses</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr *ngFor="let term of terms; let i = index">
+          <th>{{ i + 1 }}</th>
+          <td *ngFor="let course of term">
+            <app-course
+              [isSelected]="course.code === selectedCourse?.code"
+              [course]="course"
+              (deleteCourse)="deleteCourse($event)"
+            ></app-course>
+          </td>
+          <td>
+            <app-add-course
+              [index]="i"
+              (addCourse)="addCourse($event)"
+            ></app-add-course>
+          </td>
+        </tr>
+        <tr>
+          <td [attr.colspan]="getMaxCourseForTerms() + 2" class="add-term">
+            <button class="btn" (click)="addTerm()">Add Term(+)</button>
+          </td>
+        </tr>
+        <tr>
+          <td [attr.colspan]="getMaxCourseForTerms() + 2" class="remove-term">
+            <button class="btn" (click)="removeTerm()">Remove Last Term(-)</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div [ngClass]="setClassesInnerBottom()">
+    <div class="inner-bottom-head"></div>
+    <div class="inner-bottom-foot">
+      <h4>Advanced Course Edit</h4>
+      <div *ngIf="selectedCourse===null;then content else other_content"></div>
+      <ng-template #content>You must select a course</ng-template>
+      <ng-template #other_content>
+        <h5>For course: {{ selectedCourse!.code }}</h5>
+      </ng-template>
+    </div>
+  </div>
+</div>

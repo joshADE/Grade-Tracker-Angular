@@ -1,0 +1,10 @@
+<form class="form" (ngSubmit)="onSubmit()">
+    <div>{{ message }}</div>
+    <input
+      type="text"
+      name="code"
+      [(ngModel)]="code"
+      placeholder="Course Code Here..."
+    />
+    <input type="submit" value="Create Course(+)" class="btn" />
+  </form>

@@ -1,0 +1,40 @@
+.header {
+    border: 1px solid #222;
+    background-color: #64AA8E;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+    color: #fff;
+    padding: 5px;
+    height: 10vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.header a {
+    color: #fff;
+    text-decoration: none;
+    
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 5px;
+    font-weight: 700;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.header a > * {
+    margin: auto 5px;
+}
+
+.header svg {
+    width: 3vmin;
+    height: 3vmin;
+    
+    fill: white;
+    transition: all 1s ease;
+}
+
+.header svg:hover {
+    fill: rgb(196, 243, 231);
+}

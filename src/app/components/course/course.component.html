@@ -1,0 +1,18 @@
+
+<div [ngClass]="setClasses()">
+    
+    <div>Code: {{ course.code }}</div>
+    <div>Name: {{ course.name }}</div>
+    <label for="newName">New Name:</label>
+    <input type="text" id="newName" [(ngModel)]="newCourseDetails.name">
+    <div>Grade: {{ course.grade }}</div>
+    <label for="newGrade">New Grade:</label>
+    <input type="text" id="newGrade" [(ngModel)]="newCourseDetails.grade">
+    <div>Credits: {{ course.credits }}</div>
+    <label for="">New Credits:</label>
+    <input type="text" id="newCredits" [(ngModel)]="newCourseDetails.credits">
+    <button class="btn" (click)="selectCourse()">{{ isSelected ? 'Deselect' : 'Select' }}</button>
+    <button class="btn" type="submit" (click)="edit()">Edit</button>
+    <button class="btn" (click)="delete()">Delete</button>
+    
+</div>
