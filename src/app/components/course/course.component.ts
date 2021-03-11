@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { Course } from 'src/app/models/course';
 import { CourseService } from 'src/app/services/course.service';
 
@@ -8,6 +8,7 @@ import { CourseService } from 'src/app/services/course.service';
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
+  @ViewChild('container') containerElement!: ElementRef;
   @Input() isSelected: boolean = false;
   @Input() course: Course = Course.EmptyCourse();
   @Output() deleteCourse: EventEmitter<Course> = new EventEmitter();
@@ -31,6 +32,12 @@ export class CourseComponent implements OnInit {
 
   selectCourse(){
     this.courseService.selectCourse(this.course.code);
+    if (!this.isSelected){
+      setTimeout(() => {
+        this.containerElement.nativeElement.focus();
+        this.containerElement.nativeElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+      }, 500);
+    }
   }
 
   edit(){
