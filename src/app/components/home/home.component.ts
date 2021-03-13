@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AddCourseOutput, Course } from 'src/app/models/course';
 import { CourseService } from 'src/app/services/course.service';
 
@@ -7,7 +7,7 @@ import { CourseService } from 'src/app/services/course.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   terms: Course[][] = [];
 
@@ -54,6 +54,10 @@ export class HomeComponent implements OnInit {
 
   deleteCourse(courseToDelete: Course){
     this.courseService.deleteCourse(courseToDelete);
+  }
+
+  ngOnDestroy() {
+    this.courseService.selectedCourseChange.unsubscribe();
   }
 
 }
