@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Course, AddCourseOutput } from 'src/app/models/course';
 import { CourseService } from 'src/app/services/course.service';
 
@@ -15,7 +16,7 @@ export class AddCourseComponent implements OnInit {
 
   message: string = 'Messages will appear here';
 
-  code: string = '';
+  code = new FormControl('');
 
   constructor(private courseService: CourseService) { }
 
@@ -24,19 +25,19 @@ export class AddCourseComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.code.trim()) {
+    if (!this.code.value.trim()) {
       this.message = 'Must enter a course code';
       return;
     }
-    if (this.findCorse(this.code)) {
+    if (this.findCorse(this.code.value)) {
       this.message = 'Course code already exist';
       return;
     }
     const newCourse = Course.EmptyCourse();
-    newCourse.code = this.code;
+    newCourse.code = this.code.value;
     this.addCourse.emit({termIndex: this.index, newCourse});
     this.message = 'Messages will appear here';
-    this.code = '';
+    this.code.reset();
   }
 
   private findCorse(code: string): boolean {

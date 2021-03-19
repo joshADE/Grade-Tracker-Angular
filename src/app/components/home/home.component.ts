@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.courseService.selectedCourseChange.subscribe((value) => {
       this.selectedCourse = value;
     })
+    console.log("Initialized")
   }
 
 
@@ -57,7 +58,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.courseService.selectedCourseChange.unsubscribe();
+    //this.courseService.selectedCourseChange.unsubscribe();
+    console.log("Destroying");
   }
 
 }
