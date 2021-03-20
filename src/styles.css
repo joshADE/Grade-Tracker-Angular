@@ -13,7 +13,7 @@ input[type="text"]:focus, select:focus {
     box-shadow: 0 0 0 .2rem rgba(60,179,113, 0.2);
 }
 
-input[type="text"] {
+input[type="text"], input[type="number"] {
     width: 100%;
     border-radius: 5px;
     border: 1px solid #444;
