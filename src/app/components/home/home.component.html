@@ -8,7 +8,9 @@
         </tr>
       </thead>
       <tbody>
-        
+        <tr #focusParent class="focus-parent-element">
+          <td [@enterExit]="selectedCourse ? 'enter' : 'exit'" #focusElement class="focus-element"></td>
+        </tr>
         <tr *ngFor="let term of terms; let i = index">
           <th>{{ i + 1 }}</th>
           <td *ngFor="let course of term">

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Course } from 'src/app/models/course';
 import { CourseService } from 'src/app/services/course.service';
+import { FocusService } from 'src/app/services/focus.service';
 
 @Component({
   selector: 'app-course',
@@ -20,7 +21,11 @@ export class CourseComponent implements OnInit {
     grade: [this.course.grade, Validators.compose([Validators.required, Validators.min(0), Validators.max(100)])],
     credits: [this.course.credits, Validators.compose([Validators.required, Validators.min(0)])]
   })
-  constructor(private courseService: CourseService, private fb: FormBuilder) { }
+  constructor(
+    private courseService: CourseService,
+    private focusService: FocusService, 
+    private fb: FormBuilder
+    ) { }
 
   ngOnInit(): void {
     // this.newCourseDetails.code = this.course.code;
@@ -46,10 +51,13 @@ export class CourseComponent implements OnInit {
   selectCourse(){
     this.courseService.selectCourse(this.course.code);
     if (!this.isSelected){
+      this.focusService.elementRef = this.containerElement;
       setTimeout(() => {
         this.containerElement.nativeElement.focus();
         this.containerElement.nativeElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
       }, 500);
+    }else{
+      this.focusService.elementRef = null;
     }
   }
 
