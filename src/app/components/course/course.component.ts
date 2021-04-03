@@ -14,6 +14,7 @@ export class CourseComponent implements OnInit {
   @Input() isSelected: boolean = false;
   @Input() course: Course = Course.EmptyCourse();
   @Output() deleteCourse: EventEmitter<Course> = new EventEmitter();
+  @Output() focusCourse: EventEmitter<ElementRef | null> = new EventEmitter();
   // newCourseDetails: Course = Course.EmptyCourse();
   courseForm = this.fb.group({
     code: [this.course.code, Validators.required],
@@ -23,7 +24,6 @@ export class CourseComponent implements OnInit {
   })
   constructor(
     private courseService: CourseService,
-    private focusService: FocusService, 
     private fb: FormBuilder
     ) { }
 
@@ -51,13 +51,13 @@ export class CourseComponent implements OnInit {
   selectCourse(){
     this.courseService.selectCourse(this.course.code);
     if (!this.isSelected){
-      this.focusService.elementRef = this.containerElement;
+      this.focusCourse.emit(this.containerElement);
       setTimeout(() => {
         this.containerElement.nativeElement.focus();
         this.containerElement.nativeElement.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
       }, 500);
     }else{
-      this.focusService.elementRef = null;
+      this.focusCourse.emit(null);
     }
   }
 

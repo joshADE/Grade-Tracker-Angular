@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  links: [string,string][] = [['Home', '/'], ['Settings', '/settings']];
+  activeLink: string = this.links[0][0];
   constructor() { }
 
   ngOnInit(): void {

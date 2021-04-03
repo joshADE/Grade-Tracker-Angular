@@ -11,24 +11,22 @@ export class FocusService {
   styleChange: Subject<FocusStyle | null> = new Subject();
   constructor() { }
 
-  set elementRef(newElement: ElementRef | null){
-    this._focusElement = newElement;
-    if (newElement){
-      const { offsetWidth, offsetHeight, offsetLeft, offsetTop } = newElement.nativeElement;
+  focusOnCourse(courseContainer: ElementRef | null, scrollContainer: ElementRef){
+    this._focusElement = courseContainer;
+    if (courseContainer){
+      //const { offsetWidth, offsetHeight, offsetLeft, offsetTop } = courseContainer.nativeElement;
+      const { width, height, left, top } = courseContainer.nativeElement.getBoundingClientRect();
+      const { scrollLeft, scrollTop } = scrollContainer.nativeElement;
       this.style = { 
-        width: `${offsetWidth}px`, 
-        height: `${offsetHeight}px`,
-        transform: `translateX(${offsetLeft}px) translateY(${offsetTop}px)`
+        width: `${width}px`, 
+        height: `${height}px`,
+        transform: `translateX(${left + scrollLeft}px) translateY(${top + scrollTop}px)`
       }
       this.styleChange.next(this.style);
     }else{
       this.style = null;
       this.styleChange.next(this.style);
     }
-  }
-
-  get elementRef(){
-    return this._focusElement;
   }
 
 

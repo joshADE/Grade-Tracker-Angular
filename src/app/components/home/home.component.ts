@@ -30,6 +30,7 @@ import { FocusService } from 'src/app/services/focus.service';
 export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('focusElement') focusElement!: ElementRef;
   @ViewChild('focusParent') focusParent!: ElementRef;
+  @ViewChild('scrollBody') scrollBody!: ElementRef;
   terms: Course[][] = [];
 
   selectedCourse: Course | null = null; 
@@ -84,6 +85,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   deleteCourse(courseToDelete: Course){
     this.courseService.deleteCourse(courseToDelete);
+  }
+
+  focusOnCourse(courseContainer: ElementRef | null){
+    this.focusService.focusOnCourse(courseContainer, this.scrollBody);
   }
 
   ngOnDestroy() {

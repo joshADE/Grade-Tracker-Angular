@@ -1,6 +1,14 @@
 <header class="header">
     <h1>Grade Tracker</h1>
-    <nav>
+    <!-- <nav>
         <a routerLink="/">Home</a> | <a routerLink="/settings">Settings</a>
-    </nav>
+    </nav> -->
+    <div class="navigation">
+        <nav mat-tab-nav-bar mat-align-tabs="center">
+            <a mat-tab-link *ngFor="let link of links"
+            (click)="activeLink = link[0]"
+            [routerLink]="link[1]"
+            [active]="activeLink == link[0]"> {{link[0]}} </a>
+        </nav>
+    </div>
 </header>
