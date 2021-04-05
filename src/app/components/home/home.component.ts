@@ -9,6 +9,7 @@ import {
   transition
 } from '@angular/animations'
 import { FocusService } from 'src/app/services/focus.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -33,6 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('scrollBody') scrollBody!: ElementRef;
   terms: Course[][] = [];
 
+  courseSubscription!: Subscription;
+  focusSubscription!: Subscription;
   selectedCourse: Course | null = null; 
 
 
@@ -40,10 +43,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.terms = this.courseService.getTerms();
-    this.courseService.selectedCourseChange.subscribe((value) => {
+    this.courseSubscription = this.courseService.selectedCourseChange.subscribe((value) => {
       this.selectedCourse = value;
     });
-    this.focusService.styleChange.subscribe((value) => {
+    this.focusSubscription = this.focusService.styleChange.subscribe((value) => {
       this.focusElement.nativeElement.style.width = value?.width;
       this.focusElement.nativeElement.style.height = value?.height;
       this.focusElement.nativeElement.style.transform = value?.transform;
@@ -92,7 +95,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    //this.courseService.selectedCourseChange.unsubscribe();
+    this.courseSubscription.unsubscribe();
+    this.focusSubscription.unsubscribe();
     console.log("Destroying");
   }
 

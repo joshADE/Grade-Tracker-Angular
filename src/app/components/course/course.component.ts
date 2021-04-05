@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Course } from 'src/app/models/course';
 import { CourseService } from 'src/app/services/course.service';
@@ -9,7 +9,7 @@ import { FocusService } from 'src/app/services/focus.service';
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css']
 })
-export class CourseComponent implements OnInit {
+export class CourseComponent implements OnInit, OnChanges {
   @ViewChild('container') containerElement!: ElementRef;
   @Input() isSelected: boolean = false;
   @Input() course: Course = Course.EmptyCourse();
@@ -38,6 +38,10 @@ export class CourseComponent implements OnInit {
       grade: this.course.grade, 
       credits: this.course.credits 
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
   }
 
   setClasses(){
