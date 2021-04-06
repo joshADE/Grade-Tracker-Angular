@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, DoCheck, ElementRef, Inject, InjectionToken, IterableDiffer, IterableDiffers, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AddCourseOutput, Course } from 'src/app/models/course';
 import { CourseService } from 'src/app/services/course.service';
 import { 
@@ -28,8 +28,9 @@ import { Subscription } from 'rxjs';
     ])
   ]
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  @ViewChild('focusElement') focusElement!: ElementRef;
+
+export class HomeComponent implements OnInit, DoCheck, OnDestroy {
+  @ViewChild('focusElement') focusElement: ElementRef | null = null;
   @ViewChild('focusParent') focusParent!: ElementRef;
   @ViewChild('scrollBody') scrollBody!: ElementRef;
   terms: Course[][] = [];
@@ -37,9 +38,25 @@ export class HomeComponent implements OnInit, OnDestroy {
   courseSubscription!: Subscription;
   focusSubscription!: Subscription;
   selectedCourse: Course | null = null; 
+  iterableDiffer!: IterableDiffer<Course[]>;
 
+  constructor(
+    private courseService: CourseService, 
+    private focusService: FocusService, 
+    @Inject(IterableDiffers) private iterableDiffers: IterableDiffers) {
+      this.iterableDiffer = this.iterableDiffers.find(this.terms).create();
+  }
 
-  constructor(private courseService: CourseService, private focusService: FocusService) {}
+  ngDoCheck(){
+    // covers when a term is added/removed(refocusing)
+    let changes = this.iterableDiffer.diff(this.terms);
+    if (changes){
+      console.log(changes)
+      setTimeout(() => {
+        this.focusService.changeStyle();
+      },0)
+    }
+  }
 
   ngOnInit(): void {
     this.terms = this.courseService.getTerms();
@@ -47,9 +64,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.selectedCourse = value;
     });
     this.focusSubscription = this.focusService.styleChange.subscribe((value) => {
-      this.focusElement.nativeElement.style.width = value?.width;
-      this.focusElement.nativeElement.style.height = value?.height;
-      this.focusElement.nativeElement.style.transform = value?.transform;
+      if (this.focusElement){
+        this.focusElement.nativeElement.style.width = value?.width;
+        this.focusElement.nativeElement.style.height = value?.height;
+        this.focusElement.nativeElement.style.transform = value?.transform;
+      }
 
     })
     const isChrome = navigator.userAgent.indexOf("Chrome") != -1;
@@ -65,6 +84,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   addCourse({ termIndex, newCourse }: AddCourseOutput){
     this.courseService.addCourse(termIndex, newCourse);
+    // covers when a course is added(refocusing)
+    setTimeout(() => {
+      this.focusService.changeStyle();
+    },0)
   }
 
   addTerm(){
@@ -88,6 +111,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   deleteCourse(courseToDelete: Course){
     this.courseService.deleteCourse(courseToDelete);
+    // covers when a course is deleted(refocusing)
+    setTimeout(() => {
+      this.focusService.changeStyle();
+    },0)
+    
   }
 
   focusOnCourse(courseContainer: ElementRef | null){
