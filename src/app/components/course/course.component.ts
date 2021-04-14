@@ -16,6 +16,7 @@ export class CourseComponent implements OnInit, OnChanges {
   @Output() deleteCourse: EventEmitter<Course> = new EventEmitter();
   @Output() focusCourse: EventEmitter<ElementRef | null> = new EventEmitter();
   // newCourseDetails: Course = Course.EmptyCourse();
+  @Input() isEditing: boolean = true;
   courseForm = this.fb.group({
     code: [this.course.code, Validators.required],
     name: [this.course.name, Validators.required],
