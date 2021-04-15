@@ -8,6 +8,10 @@
     padding: 5px;
 }
 
+.course form {
+    width: 100%;
+}
+
 .course div {
     width: 100%;
     overflow: hidden;
