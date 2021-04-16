@@ -11,6 +11,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTabsModule } from '@angular/material/tabs'
 import { AddCourseComponent } from './components/add-course/add-course.component';
 import { CourseComponent } from './components/course/course.component';
+import { TermComponent } from './components/term/term.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CourseComponent } from './components/course/course.component';
     SettingsComponent,
     HeaderComponent,
     AddCourseComponent,
-    CourseComponent
+    CourseComponent,
+    TermComponent
   ],
   imports: [
     BrowserModule,
