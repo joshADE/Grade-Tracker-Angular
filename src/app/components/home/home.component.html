@@ -11,23 +11,13 @@
         <tr #focusParent class="focus-parent-element">
           <td [@enterExit]="selectedCourse ? 'enter' : 'exit'" #focusElement class="focus-element"></td>
         </tr>
-        <tr *ngFor="let term of terms; let i = index">
-          <th>{{ i + 1 }}</th>
-          <td *ngFor="let course of term">
-            <app-course
-              [isSelected]="course.code === selectedCourse?.code"
-              [course]="course"
-              (deleteCourse)="deleteCourse($event)"
-              (focusCourse)="focusOnCourse($event)"
-            ></app-course>
-          </td>
-          <td>
-            <app-add-course
-              [index]="i"
-              (addCourse)="addCourse($event)"
-            ></app-add-course>
-          </td>
-        </tr>
+        <app-term 
+          *ngFor="let term of terms; let i = index" 
+          [term]="term" 
+          [index]="i" 
+          [selectedCourse]="selectedCourse"
+          (focusCourse)="focusOnCourse($event)"
+        ></app-term>
         <tr>
           <td [attr.colspan]="getMaxCourseForTerms() + 2" class="add-term">
             <button class="btn" (click)="addTerm()">Add Term(+)</button>

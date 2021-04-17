@@ -82,13 +82,7 @@ export class HomeComponent implements OnInit, DoCheck, OnDestroy {
     return Math.max(...this.terms.map((courses) => courses.length));
   }
 
-  addCourse({ termIndex, newCourse }: AddCourseOutput){
-    this.courseService.addCourse(termIndex, newCourse);
-    // covers when a course is added(refocusing)
-    setTimeout(() => {
-      this.focusService.changeStyle();
-    },0)
-  }
+
 
   addTerm(){
     this.courseService.addTerm();
@@ -109,14 +103,6 @@ export class HomeComponent implements OnInit, DoCheck, OnDestroy {
     return classes;
   }
 
-  deleteCourse(courseToDelete: Course){
-    this.courseService.deleteCourse(courseToDelete);
-    // covers when a course is deleted(refocusing)
-    setTimeout(() => {
-      this.focusService.changeStyle();
-    },0)
-    
-  }
 
   focusOnCourse(courseContainer: ElementRef | null){
     this.focusService.focusOnCourse(courseContainer, this.scrollBody);

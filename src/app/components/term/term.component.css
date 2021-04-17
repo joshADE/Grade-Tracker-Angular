@@ -1,0 +1,62 @@
+.terms-label {
+    width: 75px;
+    text-align: center;
+}
+
+.courses-label {
+    width: 100%;
+}
+
+th {
+    text-align: center;
+    min-width: 75px;
+    margin: 2px;
+    font-weight: 900;
+    /* max-height: 100%; */
+    border-radius: 5px;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    background-clip: padding-box;
+    border: 1px solid #222;
+    border-radius: .25rem;
+}
+
+td {
+    width: 200px;
+     margin: 2px;
+     border-radius: 5px;
+     border: 1px solid#222;
+     transition: height 0.5s ease;
+     overflow: hidden;
+}
+
+.course {
+    height: 135px;
+    transition: height 0.5s ease;
+}
+
+.editing .course {
+    height: 300px;
+}
+
+tr {
+    display: flex;
+}
+
+
+tr.selected-term th, tr.selected-term td {
+    background-color: #ddd;
+}
+
+.edit-icon {
+    width: 24px;
+    height: 24px;
+    fill: #777;
+    cursor: pointer;
+}
+
+.edit-icon.editing {
+    fill: #3CB371;
+} 
