@@ -66,7 +66,9 @@ export class CourseService {
     for(let i = 0; i < this.terms.length; i++){
       for (let j = 0; j < this.terms[i].length; j++){
         if (this.terms[i][j].code === course.code){
-          this.terms[i][j] = course;
+          this.terms[i][j].name = course.name;
+          this.terms[i][j].grade = course.grade;
+          this.terms[i][j].credits = course.credits;
           return;
         }
       }
