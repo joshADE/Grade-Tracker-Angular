@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit, DoCheck, OnDestroy {
   constructor(
     private courseService: CourseService, 
     private focusService: FocusService, 
-    @Inject(IterableDiffers) private iterableDiffers: IterableDiffers) {
+    private iterableDiffers: IterableDiffers) {
       this.iterableDiffer = this.iterableDiffers.find(this.terms).create();
   }
 
