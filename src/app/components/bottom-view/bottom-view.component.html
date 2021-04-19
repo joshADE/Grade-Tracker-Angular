@@ -1,0 +1,21 @@
+<h4>Course Details</h4>
+<div *ngIf="selectedCourse===null;then content else other_content"></div>
+<ng-template #content>You must select a course first</ng-template>
+<ng-template #other_content>
+    <h5>For course: {{ selectedCourse!.code }}</h5>
+
+    <mat-form-field>
+        <mat-select placeholder="Pre-requisites" [formControl]="prereqCourses" multiple>
+            <mat-option *ngFor="let prereqOption of availablePrereq" [value]="prereqOption">{{prereqOption}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-select placeholder="Co-requisites" [formControl]="coreqCourses" multiple>
+            <mat-option *ngFor="let coreqOption of availableCoreq" [value]="coreqOption">{{coreqOption}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button (click)="printReq()">Submit</button>
+      
+</ng-template>

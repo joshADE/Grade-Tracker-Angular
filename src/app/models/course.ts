@@ -19,3 +19,6 @@ export interface AddCourseOutput {
     termIndex: number;
     newCourse: Course;
 }
+
+export type PrereqType = { [code: string] : string[] };
+export type CoreqType = string[][];

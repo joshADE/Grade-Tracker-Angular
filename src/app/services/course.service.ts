@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Course } from '../models/course';
+import { Course, PrereqType, CoreqType } from '../models/course';
 import { Observable, of, Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
@@ -7,6 +7,8 @@ import { Observable, of, Subject } from 'rxjs';
 export class CourseService {
   
 
+  prereq: PrereqType = {};
+  coreq: CoreqType = [];
   selectedCourse: Course | null = null;
   selectedTerm: number = -1;
   selectedCourseChange : Subject<Course | null> = new Subject();
