@@ -1,5 +1,5 @@
-import { Component, DoCheck, ElementRef, Inject, InjectionToken, IterableDiffer, IterableDiffers, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AddCourseOutput, Course } from 'src/app/models/course';
+import { Component, DoCheck, ElementRef, Inject, InjectionToken, IterableChanges, IterableDiffer, IterableDiffers, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AddCourseOutput, CoreqType, Course, PrereqType } from 'src/app/models/course';
 import { CourseService } from 'src/app/services/course.service';
 import { 
   trigger, 
@@ -34,6 +34,8 @@ export class HomeComponent implements OnInit, DoCheck, OnDestroy {
   @ViewChild('focusParent') focusParent!: ElementRef;
   @ViewChild('scrollBody') scrollBody!: ElementRef;
   terms: Course[][] = [];
+  prereq: PrereqType = {};
+  coreq: CoreqType = [];
 
   courseSubscription!: Subscription;
   focusSubscription!: Subscription;
@@ -60,6 +62,8 @@ export class HomeComponent implements OnInit, DoCheck, OnDestroy {
 
   ngOnInit(): void {
     this.terms = this.courseService.getTerms();
+    this.prereq = this.courseService.getPrereqCourses();
+    this.coreq = this.courseService.getCoreqCourses();
     this.courseSubscription = this.courseService.selectedCourseChange.subscribe((value) => {
       this.selectedCourse = value;
     });

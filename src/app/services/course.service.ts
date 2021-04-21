@@ -121,4 +121,23 @@ export class CourseService {
 
     return null;
   }
+
+  getPrereqCourses() {
+    return this.prereq;
+  }
+
+  getCoreqCourses() {
+    return this.coreq;
+  }
+
+  editPrereq(courseCode: string, prereqCourses: string[]) {
+    this.prereq[courseCode] = prereqCourses;
+    if (this.prereq[courseCode].length === 0){
+      delete this.prereq[courseCode];
+    }
+  }
+
+  editCoreq(courseCode: string, coreqCourses: string[]) {
+    
+  }
 }

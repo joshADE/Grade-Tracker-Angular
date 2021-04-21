@@ -34,7 +34,12 @@
   <div [ngClass]="setClassesInnerBottom()">
     <div class="inner-bottom-head"></div>
     <div class="inner-bottom-foot">
-      <app-bottom-view [selectedCourse]="selectedCourse"></app-bottom-view>
+      <app-bottom-view 
+        [selectedCourse]="selectedCourse"
+        [terms]="terms"
+        [prereq]="prereq"
+        [coreq]="coreq"
+      ></app-bottom-view>
     </div>
   </div>
 </div>
